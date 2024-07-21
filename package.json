@@ -1,0 +1,17 @@
+{
+  "name": "my-youtube",
+  "version": "1.0.0",
+  "description": "It's Youtube clone but this project uses the youtube's provided live APIs for videos",
+  "main": "index.js",
+  "scripts": {},
+  "author": "Jevin Sondagar",
+  "license": "ISC",
+  "dependencies": {
+    "parcel": "^2.12.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "process": "^0.11.10"
+  }
+}
