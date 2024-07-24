@@ -14,7 +14,6 @@ const suggestionSlice = createSlice({
       }
       state.LRU.push(action.payload[0]);
       state.cache[action.payload[0]] = action.payload[1];
-      console.log('mutated state');
     }
   }
 })

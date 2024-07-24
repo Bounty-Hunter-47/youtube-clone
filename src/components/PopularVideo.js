@@ -28,8 +28,8 @@ const PopularVideo = () => {
   return (
     <div className='flex flex-col w-full gap-4 items-center'>
       {
-        videoByCategory.map(video => {
-          return <Link to={'/watch?v=' + video.id}> <VideoCard video={video} /></Link>
+        videoByCategory.map((video, index) => {
+          return <Link key={index} to={'/watch?v=' + video.id}> <VideoCard video={video} /></Link>
         })
       }
     </div>

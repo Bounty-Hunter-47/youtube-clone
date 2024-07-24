@@ -29,27 +29,26 @@ const Header = () => {
       }
       const json = await data.json();
       setSearchResult(json);
+      dispatch(addSuggestion([searchKeyword, json]));
     }
     catch (error) {
       console.log('Error:', error);
     }
   }
 
-  const suggestion = useSelector(store => store.suggestion.cache)
-  // const CACHE_LIMIT = useSelector(store => store.suggestion.CACHE_LIMIT);
-  // const LRU = useSelector(store => store.suggestion.LRU);
+  const suggestion = useSelector(store => store.suggestion.cache);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
 
       if (searchKeyword === '' || searchKeyword === undefined) return;
 
-      // getSuggestions(searchKeyword);
       if (suggestion[searchKeyword]) {
         console.log('already cached suggestion', suggestion);
+        setSearchResult(suggestion[searchKeyword]);
       }
       else {
-        dispatch(addSuggestion([searchKeyword, "suggestion for " + searchKeyword]));
+        getSuggestions(searchKeyword);
         console.log(searchKeyword);
       }
     }, 200)
