@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import commentsData from '../utils/commentsData.json'
 import CommentList from './CommentList';
 import { GET_COMMENTS } from '../utils/constants';
 import { useDispatch, useSelector } from 'react-redux';

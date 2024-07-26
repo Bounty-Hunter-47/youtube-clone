@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import PopularVideo from './PopularVideo';
 import CommentsContainer from './CommentsContainer';
+import LiveChat from './LiveChat';
 
 const WatchVideo = () => {
 
@@ -17,18 +18,23 @@ const WatchVideo = () => {
 
   return (
     <>
-      <div className='pl-10 pr-10 w-full pt-10 shadow-sm bg-slate-300 flex gap-6'>
-        <div>
-          <iframe className='shadow-xl rounded-lg' width="1280" height="720"
+      <div className='pl-10 pr-10 w-full pt-10 shadow-sm bg-slate-300 flex flex-col gap-6'>
+        <div className='flex gap-10'>
+          <iframe className='shadow-xl rounded-lg min-w-[1280px]' width="1280" height="720"
             src={"https://www.youtube.com/embed/" + videoId}
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerPolicy="strict-origin-when-cross-origin" allowFullScreen>
           </iframe>
-          <CommentsContainer id={videoId} />
+          <LiveChat />
         </div>
-        <div className='w-full'>
-          <PopularVideo />
+        <div className='w-full flex'>
+          <div className='min-w-[1280px] max-w-[1280px]'>
+            <CommentsContainer id={videoId} />
+          </div>
+          <div className='flex justify-center w-full mt-16'>
+            <PopularVideo />
+          </div>
         </div>
       </div>
 
