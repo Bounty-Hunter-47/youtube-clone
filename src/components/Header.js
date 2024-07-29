@@ -8,7 +8,7 @@ import { toggleSidebar } from '../utils/sidebarSlice';
 import { Link } from 'react-router-dom';
 import { GET_SUGGESTIONS } from '../utils/constants';
 import { addSuggestion } from '../utils/suggestionSlice';
-
+import { MdCancel } from "react-icons/md";
 
 const Header = () => {
 
@@ -29,6 +29,7 @@ const Header = () => {
       }
       const json = await data.json();
       setSearchResult(json);
+      setShowSuggestion(true);
       dispatch(addSuggestion([searchKeyword, json]));
     }
     catch (error) {
@@ -64,11 +65,13 @@ const Header = () => {
   }
 
   const handleBlur = (e) => {
-    setShowSuggestion(false);
+    setTimeout(() => {
+      setShowSuggestion(false);
+    }, 1000);
   }
 
   return (
-    <div className='bg-slate-200 fixed inset-0 h-[90px] flex justify-between px-10 items-center shadow-md'>
+    <div className='bg-slate-200 fixed z-50 inset-0 h-[90px] flex justify-between px-10 items-center shadow-md'>
       <div className='flex gap-x-6 items-center'>
         <GiHamburgerMenu onClick={handleToggle} className='cursor-pointer' size={25} />
         <Link to={'/'}>
@@ -79,25 +82,28 @@ const Header = () => {
         </Link>
       </div>
       <div className='flex w-1/3 min-w-[400px] items-center bg-slate-100 rounded-lg'>
-        <div className='w-full relative' onFocus={() => setShowSuggestion(true)}
-          onBlur={(e) => handleBlur(e)}>
+        <div className='w-full relative flex bg-white rounded-md' onBlur={(e) => handleBlur(e)}>
           <input
             className='p-2 rounded-lg w-full outline-none'
             type="text"
-            onChange={(e) => { setSearchKeyword(e.target.value) }}
-          />
+            value={searchKeyword}
+            onChange={(e) => { setSearchKeyword(e.target.value) }} />
+          {
+            searchKeyword !== '' &&
+            <button className=' py-1 pr-4' onClick={() => { setSearchKeyword(''); console.log('cleared the output'); }}><MdCancel size={30} fill='black' /></button>
+          }
           {
             searchResult && searchResult.length !== 0 && showSuggestion &&
             <div className='absolute top-[100%] mt-2 left-0 right-0 bg-white rounded-lg'>
               {
                 searchResult?.items.map(suggestion => {
-                  return <Link key={suggestion?.id?.videoId} to={'watch?v=' + suggestion?.id?.videoId}> <div className='py-4 px-6 border-b border-grey text-ellipsis overflow-hidden whitespace-nowrap'>{suggestion?.snippet?.title}</div></Link>
+                  return <Link className='suggestion-list-element' key={suggestion?.id?.videoId} to={'watch?v=' + suggestion?.id?.videoId}> <div className='py-4 px-6 border-b border-grey text-ellipsis overflow-hidden whitespace-nowrap'>{suggestion?.snippet?.title}</div></Link>
                 })
               }
             </div>
           }
         </div>
-        <button className=' p-3 w-10'><CiSearch /></button>
+        <button className='px-4'><CiSearch size={30} /></button>
       </div>
       <div>
         <RxAvatar size={35} />

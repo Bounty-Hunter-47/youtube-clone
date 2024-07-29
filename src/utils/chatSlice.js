@@ -7,12 +7,15 @@ const chatSlice = createSlice({
   },
   reducers: {
     addChat: (state, action) => {
-      state.messages.splice(40, 1);
+      state.messages.splice(20, 1);
       state.messages.unshift(action.payload);
+    },
+    resetChat: (state, action) => {
+      state.messages = [];
     }
   }
 })
 
-export const { addChat } = chatSlice.actions;
+export const { addChat, resetChat } = chatSlice.actions;
 
 export default chatSlice.reducer;

@@ -16,6 +16,12 @@ const WatchVideo = () => {
     dispatch(closeSidebar(false));
   }, []);
 
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    console.log('scrolled to top');
+  }, [videoId])
+
   return (
     <>
       <div className='pl-10 pr-10 w-full pt-10 shadow-sm bg-slate-300 flex flex-col gap-6'>
